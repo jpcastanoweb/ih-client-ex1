@@ -24,7 +24,9 @@ const ProjectState = (props) => {
         type: "GET_PROJECTS",
         payload: updatedProjects,
       })
-    } catch (error) {}
+    } catch (error) {
+      console.log("Error fetching all projects and dispatching: ", error)
+    }
   }
 
   // 4. RETURN
@@ -33,10 +35,6 @@ const ProjectState = (props) => {
       value={{
         projects: globalState.projects,
         darkMode: true,
-        usuario: {
-          name: "Juan Pa",
-          email: "jpcastanom@gmail.com",
-        },
         getProjects,
       }}
     >
