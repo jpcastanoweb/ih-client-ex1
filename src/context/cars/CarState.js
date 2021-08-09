@@ -17,7 +17,7 @@ const CarState = (props) => {
 
   const getCars = async () => {
     try {
-      const res = await axios.get("http://localhost:3001/api/cars")
+      const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/cars`)
       const newData = res.data
 
       dispatch({
@@ -32,9 +32,12 @@ const CarState = (props) => {
   const createCar = async (car) => {
     console.log(car)
     try {
-      const res = await axios.post("http://localhost:3001/api/cars/create", {
-        car,
-      })
+      const res = await axios.post(
+        `${process.env.REACT_APP_BASE_URL}/api/cars/create`,
+        {
+          car,
+        }
+      )
       getCars()
       return res
     } catch (error) {
@@ -44,10 +47,13 @@ const CarState = (props) => {
 
   const editCar = async (car) => {
     try {
-      const res = await axios.post("http://localhost:3001/api/cars/edit", {
-        carId: car._id,
-        car,
-      })
+      const res = await axios.post(
+        `${process.env.REACT_APP_BASE_URL}/api/cars/edit`,
+        {
+          carId: car._id,
+          car,
+        }
+      )
       getCars()
       return res
     } catch (error) {
@@ -57,9 +63,12 @@ const CarState = (props) => {
 
   const deleteCar = async (carId) => {
     try {
-      const res = await axios.post("http://localhost:3001/api/cars/delete", {
-        carId,
-      })
+      const res = await axios.post(
+        `${process.env.REACT_APP_BASE_URL}/api/cars/delete`,
+        {
+          carId,
+        }
+      )
       getCars()
       return res
     } catch (error) {

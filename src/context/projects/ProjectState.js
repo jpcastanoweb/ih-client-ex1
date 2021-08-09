@@ -17,7 +17,9 @@ const ProjectState = (props) => {
 
   const getProjects = async () => {
     try {
-      const res = await axios.get("http://localhost:3001/api/projects")
+      const res = await axios.get(
+        `${process.env.REACT_APP_BASE_URL}/api/projects`
+      )
       const updatedProjects = res.data
 
       dispatch({
@@ -32,7 +34,7 @@ const ProjectState = (props) => {
   const createProject = async (project) => {
     try {
       const res = await axios.post(
-        "http://localhost:3001/api/projects/create",
+        `${process.env.REACT_APP_BASE_URL}/api/projects/create`,
         project
       )
       getProjects()
@@ -44,10 +46,13 @@ const ProjectState = (props) => {
 
   const editProject = async (project) => {
     try {
-      const res = await axios.post("http://localhost:3001/api/projects/edit", {
-        projectId: project._id,
-        name: project.name,
-      })
+      const res = await axios.post(
+        `${process.env.REACT_APP_BASE_URL}/api/projects/edit`,
+        {
+          projectId: project._id,
+          name: project.name,
+        }
+      )
       getProjects()
       return res
     } catch (error) {
@@ -58,7 +63,7 @@ const ProjectState = (props) => {
   const deleteProject = async (projectId) => {
     try {
       const res = await axios.post(
-        "http://localhost:3001/api/projects/delete",
+        `${process.env.REACT_APP_BASE_URL}/api/projects/delete`,
         {
           projectId,
         }
