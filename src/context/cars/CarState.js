@@ -29,9 +29,49 @@ const CarState = (props) => {
     }
   }
 
+  const createCar = async (car) => {
+    console.log(car)
+    try {
+      const res = await axios.post("http://localhost:3001/api/cars/create", {
+        car,
+      })
+      getCars()
+      return res
+    } catch (error) {
+      console.log("Error sending create car to backend", error.message)
+    }
+  }
+
+  const editCar = async (car) => {
+    try {
+      const res = await axios.post("http://localhost:3001/api/cars/edit", {
+        carId: car._id,
+        car,
+      })
+      getCars()
+      return res
+    } catch (error) {
+      console.log("Error sending edit car to backend", error.message)
+    }
+  }
+
+  const deleteCar = async (carId) => {
+    try {
+      const res = await axios.post("http://localhost:3001/api/cars/delete", {
+        carId,
+      })
+      getCars()
+      return res
+    } catch (error) {
+      console.log("Error sending delete car to backend", error.message)
+    }
+  }
+
   // 4. RETURN
   return (
-    <CarContext.Provider value={{ cars: globalState.cars, getCars }}>
+    <CarContext.Provider
+      value={{ cars: globalState.cars, getCars, createCar, editCar, deleteCar }}
+    >
       {props.children}
     </CarContext.Provider>
   )
