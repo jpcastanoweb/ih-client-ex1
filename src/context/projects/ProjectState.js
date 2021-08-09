@@ -35,13 +35,40 @@ const ProjectState = (props) => {
         "http://localhost:3001/api/projects/create",
         project
       )
-      console.log(res)
-      // res.json(res.data)
+      getProjects()
+      return res
     } catch (error) {
       console.log("Error sending new project to server: ", error.message)
     }
   }
 
+  const editProject = async (project) => {
+    try {
+      const res = await axios.post("http://localhost:3001/api/projects/edit", {
+        projectId: project._id,
+        name: project.name,
+      })
+      getProjects()
+      return res
+    } catch (error) {
+      console.log("Error editing project", error.message)
+    }
+  }
+
+  const deleteProject = async (projectId) => {
+    try {
+      const res = await axios.post(
+        "http://localhost:3001/api/projects/delete",
+        {
+          projectId,
+        }
+      )
+      getProjects()
+      return res
+    } catch (error) {
+      console.log("Error sending delete form to backend", error.message)
+    }
+  }
   // 4. RETURN
   return (
     <ProjectContext.Provider
@@ -50,6 +77,8 @@ const ProjectState = (props) => {
         darkMode: true,
         getProjects,
         createProject,
+        editProject,
+        deleteProject,
       }}
     >
       {props.children}
