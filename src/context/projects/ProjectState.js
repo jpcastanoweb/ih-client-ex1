@@ -29,6 +29,19 @@ const ProjectState = (props) => {
     }
   }
 
+  const createProject = async (project) => {
+    try {
+      const res = await axios.post(
+        "http://localhost:3001/api/projects/create",
+        project
+      )
+      console.log(res)
+      // res.json(res.data)
+    } catch (error) {
+      console.log("Error sending new project to server: ", error.message)
+    }
+  }
+
   // 4. RETURN
   return (
     <ProjectContext.Provider
@@ -36,6 +49,7 @@ const ProjectState = (props) => {
         projects: globalState.projects,
         darkMode: true,
         getProjects,
+        createProject,
       }}
     >
       {props.children}
